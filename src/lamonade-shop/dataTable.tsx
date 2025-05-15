@@ -46,7 +46,7 @@ const DataTable = ({ dataArray }: myProps) => {
       </div>
 
       {dataArray.length <= 0 ? (
-        <div className="col-span-9 w-full border border-l border-black px-1 min-h-[50px] text-center  font-bold flex items-center justify-center text-md">
+        <div className="col-span-12 w-full  px-1 min-h-[50px] text-center  border border-black font-bold flex items-center justify-center text-md">
           Please execute for Day 1
         </div>
       ) : (
@@ -61,8 +61,8 @@ const DataTable = ({ dataArray }: myProps) => {
                   ? "bg-red-400"
                   : item.remainigInventory > 0
                   ? "bg-green-400"
-                  : ""
-              } col-span-1 w-full border border-l border-black px-1 min-h-[35px] text-center  font-bold flex items-center justify-center text-md`}
+                  : "border"
+              } col-span-1 w-full  px-1 min-h-[35px] text-center font-bold flex items-center justify-center text-md`}
             >
               {DayTempWeatherData[index].temp}
             </div>
@@ -72,8 +72,8 @@ const DataTable = ({ dataArray }: myProps) => {
                   ? "bg-red-400"
                   : item.remainigInventory > 0
                   ? "bg-green-400"
-                  : ""
-              } col-span-1 w-full border border-l border-black px-1 min-h-[35px] text-center  font-bold flex items-center justify-center text-md`}
+                  : "border"
+              } col-span-1 w-full  px-1 min-h-[35px] text-center font-bold flex items-center justify-center text-md`}
             >
               {DayTempWeatherData[index].weather}
             </div>
@@ -83,8 +83,8 @@ const DataTable = ({ dataArray }: myProps) => {
                   ? "bg-red-400"
                   : item.remainigInventory > 0
                   ? "bg-green-400"
-                  : ""
-              } col-span-1 w-full border border-l border-black px-1 min-h-[35px] text-center  font-bold flex items-center justify-center text-md`}
+                  : "border"
+              } col-span-1 w-full  px-1 min-h-[35px] text-center font-bold flex items-center justify-center text-md`}
             >
               {item.estimCustomer}
             </div>
@@ -94,8 +94,8 @@ const DataTable = ({ dataArray }: myProps) => {
                   ? "bg-red-400"
                   : item.remainigInventory > 0
                   ? "bg-green-400"
-                  : ""
-              } col-span-1 w-full border border-l border-black px-1 min-h-[35px] text-center  font-bold flex items-center justify-center text-md`}
+                  : "border"
+              } col-span-1 w-full  px-1 min-h-[35px] text-center font-bold flex items-center justify-center text-md`}
             >
               {item.actualCustomer}
             </div>
@@ -105,8 +105,8 @@ const DataTable = ({ dataArray }: myProps) => {
                   ? "bg-red-400"
                   : item.remainigInventory > 0
                   ? "bg-green-400"
-                  : ""
-              } col-span-1 w-full border border-l border-black px-1 min-h-[35px] text-center  font-bold flex items-center justify-center text-md`}
+                  : "border"
+              } col-span-1 w-full  px-1 min-h-[35px] text-center font-bold flex items-center justify-center text-md`}
             >
               {item.currentInventory}
             </div>
@@ -116,8 +116,8 @@ const DataTable = ({ dataArray }: myProps) => {
                   ? "bg-red-400"
                   : item.remainigInventory > 0
                   ? "bg-green-400"
-                  : ""
-              } col-span-1 w-full border border-l border-black px-1 min-h-[35px] text-center  font-bold flex items-center justify-center text-md`}
+                  : "border"
+              } col-span-1 w-full  px-1 min-h-[35px] text-center font-bold flex items-center justify-center text-md`}
             >
               {item.estimatedInventory}
             </div>
@@ -127,8 +127,8 @@ const DataTable = ({ dataArray }: myProps) => {
                   ? "bg-red-400"
                   : item.remainigInventory > 0
                   ? "bg-green-400"
-                  : ""
-              } col-span-1 w-full border border-l border-black px-1 min-h-[35px] text-center  font-bold flex items-center justify-center text-md`}
+                  : "border"
+              } col-span-1 w-full  px-1 min-h-[35px] text-center font-bold flex items-center justify-center text-md`}
             >
               {item.totalInventory}
             </div>
@@ -138,8 +138,8 @@ const DataTable = ({ dataArray }: myProps) => {
                   ? "bg-red-400"
                   : item.remainigInventory > 0
                   ? "bg-green-400"
-                  : ""
-              } col-span-1 w-full border border-l border-black px-1 min-h-[35px] text-center  font-bold flex items-center justify-center text-md`}
+                  : "border"
+              } col-span-1 w-full  px-1 min-h-[35px] text-center font-bold flex items-center justify-center text-md`}
             >
               {item.remainigInventory}
             </div>

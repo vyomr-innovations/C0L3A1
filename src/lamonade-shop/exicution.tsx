@@ -1,7 +1,7 @@
 "use client";
 import InventoryDialog from "@/components/dialog";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DayTempWeather from "./dayTempWeather";
 
 type InventoryItem = {
@@ -21,7 +21,6 @@ type myProps = {
 const ExicutionInventory = ({ setDataArry, dataArray }: myProps) => {
   // const [dataArray, setDataArry] = useState([]);
   const [open, setOpen] = useState(false);
-
   const [bubulAnim, setBubulAnim] = useState(false);
   const [dilogData, setDilogData] = useState({
     day: 0,
@@ -35,6 +34,14 @@ const ExicutionInventory = ({ setDataArry, dataArray }: myProps) => {
     estimInven: 0,
     totalInven: 0,
   });
+
+    useEffect(() => {
+    const estimatedInventory = formData.estimCustomer - formData.currenInven;
+    setFormData((prev) => ({
+      ...prev,
+      estimInven: estimatedInventory > 0 ? estimatedInventory : 0,
+    }));
+  }, [formData.estimCustomer, formData.currenInven]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,7 +132,7 @@ const ExicutionInventory = ({ setDataArry, dataArray }: myProps) => {
           alt=""
         />
         <div className="col-span-12 w-full">
-          <DayTempWeather />
+          <DayTempWeather dataArray={dataArray}  />
         </div>
         <div className="col-span-6 w-full  flex justify-center items-center ">
           <Image
@@ -156,7 +163,7 @@ const ExicutionInventory = ({ setDataArry, dataArray }: myProps) => {
                     estimCustomer: Number(e.target.value),
                   }))
                 }
-                type="number"
+                type="text"
                 id="estimatedCostomeer"
                 className="  text-black text-md border-b-2  border-black w-[60px] px-2 "
               />
@@ -178,7 +185,7 @@ const ExicutionInventory = ({ setDataArry, dataArray }: myProps) => {
                     currenInven: Number(e.target.value),
                   }))
                 }
-                type="number"
+              type="text"
                 id="currentInventory"
                 className="  text-black text-md border-b-2  border-black w-[60px] px-2 "
               />
