@@ -1,4 +1,5 @@
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { useInventory } from "@/context/dataContext";
 
 type InventoryDialogProps = {
   open: boolean;
@@ -13,6 +14,7 @@ type InventoryDialogProps = {
 };
 
 const InventoryDialog = ({ dilogData, open, setOpen, onConfirm }: InventoryDialogProps) => {
+  const {dataArray}=useInventory()
   const handleOkClick = () => {
     onConfirm();    // call the passed function on OK click
     setOpen(false); // close the dialog
@@ -49,23 +51,20 @@ const InventoryDialog = ({ dilogData, open, setOpen, onConfirm }: InventoryDialo
                 dilogData.remaining < 0
                   ? "text-red-500"
                   : dilogData.remaining > 0
-                  ? "text-green-600"
-                  : "text-black"
+                  ? "text-green-500"
+                  : ""
               }`}
             >
               {dilogData.remaining < 0
                 ? "Shortfall Inventory"
                 : dilogData.remaining > 0
                 ? "Surplus Inventory"
-                : "Balanced Inventory"}
+                : ""}
             </label>
             <span
               className={`text-xl w-[100px] px-2 ${
-                dilogData.remaining < 0
-                  ? "text-red-500"
-                  : dilogData.remaining > 0
-                  ? "text-green-600"
-                  : "text-black"
+               dilogData.remaining > 0 ? "text-green-500":
+               dilogData.remaining < 0 ? "text-red-500":""
               }`}
             >
               {dilogData.remaining}
@@ -78,7 +77,10 @@ const InventoryDialog = ({ dilogData, open, setOpen, onConfirm }: InventoryDialo
               onClick={handleOkClick}
               className="px-10 cursor-pointer py-2 bg-blue-600 rounded-lg text-white"
             >
-              Next Day (Day {dilogData.day + 2})
+
+
+              {dataArray.length >= 5 ? "Ok" : ` Next Day (Day ${dilogData.day + 2})`}
+             
             </button>
           </div>
         </form>

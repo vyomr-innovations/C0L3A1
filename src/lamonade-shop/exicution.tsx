@@ -81,12 +81,12 @@ const ExicutionInventory = () => {
       actualCustomer = Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    const inventoryConsumed = Math.min(actualCustomer, Number(formData.estimInven));
-   ;
-    const remainigInventory = Number(formData.estimInven) - actualCustomer;
- const totalInventory = formData.currenInven + Number(formData.estimInven)
+    ;
+    const totalInventory = formData.currenInven + Number(formData.estimInven)
+const inventoryConsumed = Math.min(actualCustomer, totalInventory);
+const remainigInventory = totalInventory - actualCustomer;
     let currentInventory = totalInventory - inventoryConsumed;
-    if (currentInventory < 0) currentInventory = 0;
+    if (currentInventory < 0)  currentInventory = 0;
 
     const estimatedInventory =
       Number(formData.estimCustomer) - currentInventory;
@@ -140,7 +140,10 @@ const ExicutionInventory = () => {
   };
 
   return (
+
+    
     <div>
+      
       <div className="grid grid-cols-12 place-items-center relative bg-violet-100 p-5 rounded-lg w-full gap-3">
         <img
           src="/bubul.gif"
