@@ -20,27 +20,32 @@ const ExicutionInventory = () => {
   });
 
   const [formData, setFormData] = useState({
-    estimCustomer: 0,
+    estimCustomer: "0",
     currenInven: 0,
-    estimInven: 0,
+    estimInven: "0",
     totalInven: 0,
   });
 
-useEffect(() => {
-  const estimatedInventory = formData.estimCustomer - formData.currenInven;
-  const safeEstimatedInventory = estimatedInventory > 0 ? estimatedInventory : 0;
+  useEffect(() => {
+    const estimatedInventory =
+      Number(formData.estimCustomer) - formData.currenInven;
+    const safeEstimatedInventory =
+      estimatedInventory > 0 ? estimatedInventory : 0;
 
-  // Only update if estimCustomer is not zero to prevent clearing estimInven when estimCustomer resets
-  if (formData.estimCustomer !== 0 && safeEstimatedInventory !== formData.estimInven) {
-    setFormData((prev) => ({
-      ...prev,
-      estimInven: safeEstimatedInventory,
-    }));
-  }
-}, [formData.estimCustomer, formData.currenInven]);
+    // Only update if estimCustomer is not zero to prevent clearing estimInven when estimCustomer resets
+    if (
+      Number(formData.estimCustomer) !== 0 &&
+      safeEstimatedInventory !== Number(formData.estimInven)
+    ) {
+      setFormData((prev) => ({
+        ...prev,
+        estimInven: JSON.stringify(safeEstimatedInventory),
+      }));
+    }
+  }, [Number(formData.estimCustomer), formData.currenInven]);
 
   useEffect(() => {
-    const totalInventory = formData.currenInven + formData.estimInven;
+    const totalInventory = formData.currenInven + Number(formData.estimInven);
 
     if (totalInventory !== formData.totalInven) {
       setFormData((prev) => ({
@@ -48,7 +53,7 @@ useEffect(() => {
         totalInven: totalInventory,
       }));
     }
-  }, [formData.estimInven, formData.currenInven]);
+  }, [Number(formData.estimInven), formData.currenInven]);
 
   // State to hold the new day data temporarily, but NOT added to dataArray yet
   const [pendingDayData, setPendingDayData] = useState<null | {
@@ -64,23 +69,27 @@ useEffect(() => {
     e.preventDefault();
 
     // Calculate all values
-    const estimated = formData.estimCustomer;
+    const estimated = Number(formData.estimCustomer);
     const min = Math.floor(estimated * 0.7);
     const max = Math.ceil(estimated * 1.3);
     let actualCustomer = estimated;
 
-    while (actualCustomer >= estimated * 0.9 && actualCustomer <= estimated * 1.1) {
+    while (
+      actualCustomer >= estimated * 0.9 &&
+      actualCustomer <= estimated * 1.1
+    ) {
       actualCustomer = Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    const inventoryConsumed = Math.min(actualCustomer, formData.estimInven);
-    const totalInventory = formData.currenInven + formData.estimInven;
-    const remainigInventory = formData.estimInven - actualCustomer;
-
+    const inventoryConsumed = Math.min(actualCustomer, Number(formData.estimInven));
+   ;
+    const remainigInventory = Number(formData.estimInven) - actualCustomer;
+ const totalInventory = formData.currenInven + Number(formData.estimInven)
     let currentInventory = totalInventory - inventoryConsumed;
     if (currentInventory < 0) currentInventory = 0;
 
-    const estimatedInventory = formData.estimCustomer - currentInventory;
+    const estimatedInventory =
+      Number(formData.estimCustomer) - currentInventory;
 
     // Set dialog data to show in popup
     setDilogData({
@@ -92,7 +101,7 @@ useEffect(() => {
 
     // Store this day data in a temporary state, NOT pushing to dataArray yet
     setPendingDayData({
-      estimCustomer: formData.estimCustomer,
+      estimCustomer: Number(formData.estimCustomer),
       estimatedInventory,
       actualCustomer,
       currentInventory,
@@ -105,13 +114,13 @@ useEffect(() => {
     setTimeout(() => setBubulAnim(false), 3000);
 
     // Update form data current inventory for next round
-    setFormData((prev) => ({
-      ...prev,
-     
-      currenInven: currentInventory,
-       estimCustomer: 0,
-    }));
-   
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   currenInven: currentInventory,
+    //   estimCustomer: "0",
+    //   estimInven: 0,
+    //   totalInven: prev.totalInven,
+    // }));
   };
 
   // This function will be passed to dialog and called on Confirm button click
@@ -119,6 +128,14 @@ useEffect(() => {
     if (pendingDayData) {
       setDataArry((prev) => [...prev, pendingDayData]);
       setPendingDayData(null);
+
+      setFormData((prev) => ({
+      ...prev,
+      currenInven: pendingDayData.currentInventory,
+      estimCustomer: "0",
+      estimInven: "0",
+      totalInven: pendingDayData.totalInventory, // <- only currentInventory remains
+    }));
     }
   };
 
@@ -136,7 +153,12 @@ useEffect(() => {
           <DayTempWeather dataArray={dataArray} />
         </div>
         <div className="col-span-6 w-full flex justify-center items-center">
-          <Image src="/leman-glass.png" width={100} height={100} alt="leman-glass" />
+          <Image
+            src="/leman-glass.png"
+            width={100}
+            height={100}
+            alt="leman-glass"
+          />
         </div>
         <div className="col-span-6 w-full h-full flex items-center">
           <form
@@ -156,10 +178,10 @@ useEffect(() => {
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    estimCustomer: Number(e.target.value),
+                    estimCustomer: e.target.value,
                   }))
                 }
-                type="number"
+                type="text"
                 id="estimatedCostomeer"
                 className="text-black text-md border-b-2 border-black w-[60px] px-2"
               />
@@ -175,12 +197,7 @@ useEffect(() => {
               <input
                 min={0}
                 value={formData.currenInven}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    currenInven: Number(e.target.value),
-                  }))
-                }
+                readOnly
                 type="number"
                 id="currentInventory"
                 className="text-black text-md border-b-2 border-black w-[60px] px-2"
@@ -200,10 +217,10 @@ useEffect(() => {
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    estimInven: Number(e.target.value),
+                    estimInven:(e.target.value),
                   }))
                 }
-                type="number"
+                type="text"
                 id="estimatedInventory"
                 className="text-black text-md border-b-2 border-black w-[60px] px-2"
               />
