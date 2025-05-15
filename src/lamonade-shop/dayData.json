@@ -1,0 +1,36 @@
+[
+    {
+        "day":1,
+        "temp":"45°",
+        "weather":"Sunny"
+    } ,
+    {
+        "day":2,
+        "temp":"24°",
+        "weather":"Cloudy"
+   
+    },
+    {
+        "day":3,
+        "temp":"18°",
+        "weather":"Rainy"
+        
+    },
+     {
+        "day":4,
+        "temp":"45°",
+        "weather":"Sunny"
+    } ,
+    {
+        "day":5,
+        "temp":"18°",
+        "weather":"Rainy"
+        
+    },
+    {
+        "day":6,
+        "temp":"24°",
+        "weather":"Cloudy"
+   
+    }
+]
