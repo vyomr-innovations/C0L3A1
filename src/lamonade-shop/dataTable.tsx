@@ -1,19 +1,11 @@
 "use client";
+import { useInventory } from "@/context/dataContext";
 import DayTempWeatherData from "@/lamonade-shop/dayData.json";
 import React from "react";
-type InventoryItem = {
-  estimCustomer: number;
-  actualCustomer: number;
-  currentInventory: number;
-  totalInventory: number;
-  remainigInventory: number;
-  estimatedInventory:number
-};
 
-type myProps = {
-  dataArray: InventoryItem[];
-};
-const DataTable = ({ dataArray }: myProps) => {
+
+const DataTable = () => {
+    const {dataArray} = useInventory()
   if (dataArray.length > 6) return null;
   return (
     <div className="grid grid-cols-9 w-full place-items-center  gap-0.5  p-1 rounded-lg ">
