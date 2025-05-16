@@ -23,7 +23,7 @@ const DayTempWeather = ({dataArray}:myProps) => {
       <div className="col-span-4 w-full ">
         <h3 className="text-xl text-black text-center ">
           <span className="font-bold ">Day : </span>
-          {DayTempWeatherData[index].day}-6
+          {DayTempWeatherData[index].day}/6
         </h3>
       </div>
       <div className="col-span-4 w-full">
