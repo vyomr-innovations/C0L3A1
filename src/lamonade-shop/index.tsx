@@ -6,9 +6,10 @@ const LemonadeShome = () => {
   // const [dataArray, setDataArry] = useState<InventoryItem[]>([]);
   return (
     <div className="min-h-screen flex justify-center items-start p-2 bg-[#F8FCFA]">
-      <div className="grid grid-cols-12  gap-5 w-full  ">
+      <div className="grid grid-cols-12  gap-0.5 w-full  ">
         
-        <div className="col-span-12  ">
+        
+        <div className="col-span-12 ">
       <div className=" flex justify-center ">
             <ExicutionInventory  />
       </div>

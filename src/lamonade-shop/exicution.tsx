@@ -81,12 +81,11 @@ const ExicutionInventory = () => {
       actualCustomer = Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    ;
-    const totalInventory = formData.currenInven + Number(formData.estimInven)
-const inventoryConsumed = Math.min(actualCustomer, totalInventory);
-const remainigInventory = totalInventory - actualCustomer;
+    const totalInventory = formData.currenInven + Number(formData.estimInven);
+    const inventoryConsumed = Math.min(actualCustomer, totalInventory);
+    const remainigInventory = totalInventory - actualCustomer;
     let currentInventory = totalInventory - inventoryConsumed;
-    if (currentInventory < 0)  currentInventory = 0;
+    if (currentInventory < 0) currentInventory = 0;
 
     const estimatedInventory =
       Number(formData.estimCustomer) - currentInventory;
@@ -130,131 +129,137 @@ const remainigInventory = totalInventory - actualCustomer;
       setPendingDayData(null);
 
       setFormData((prev) => ({
-      ...prev,
-      currenInven: pendingDayData.currentInventory,
-      estimCustomer: "0",
-      estimInven: "0",
-      totalInven: pendingDayData.totalInventory, // <- only currentInventory remains
-    }));
+        ...prev,
+        currenInven: pendingDayData.currentInventory,
+        estimCustomer: "0",
+        estimInven: "0",
+        totalInven: pendingDayData.totalInventory, // <- only currentInventory remains
+      }));
     }
   };
 
   return (
-
-    
     <div>
-      
-      <div className="grid grid-cols-12 place-items-center relative bg-violet-100 p-5 rounded-lg w-full gap-3">
-        <img
+      <div className="grid grid-cols-12 min-w-[450px] place-items-center relative bg-violet-100 px-5 py-2 rounded-lg w-full gap-3">
+        <Image 
+        fill
           src="/bubul.gif"
           className={`${
             bubulAnim ? "opacity-80" : "opacity-0"
           } absolute object-cover top-0 rounded-lg overflow-hidden left-0 w-full h-full transition-all duration-150 delay-500`}
           alt=""
         />
-        <div className="col-span-12 w-full">
+        <div className="col-span-12 w-full  ">
           <DayTempWeather dataArray={dataArray} />
         </div>
         <div className="col-span-6 w-full flex justify-center items-center">
-          <Image
-            src="/leman-glass.png"
-            width={100}
-            height={100}
-            alt="leman-glass"
-          />
+          <div className=" w-full flex justify-center items-center   flex-col  ">
+            <Image width={120} height={100} src="/logo.png" alt="logo image" />
+            <h4 className="text-center text-black text-sm font-bold">
+              The Lemonade Stand
+            </h4>
+          </div>
         </div>
         <div className="col-span-6 w-full h-full flex items-center">
-          <form
-            onSubmit={handleSubmit}
-            className="flex justify-center items-start gap-2 flex-col z-20"
-          >
-            <div className="flex items-center w-full justify-between gap-2">
-              <label
-                className="text-lg text-black min-w-[120px] text-left"
-                htmlFor="estimatedCostomeer"
-              >
-                Estimated Customers
-              </label>
-              <input
-                min={0}
-                value={formData.estimCustomer}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    estimCustomer: e.target.value,
-                  }))
-                }
-                type="text"
-                id="estimatedCostomeer"
-                className="text-black text-md border-b-2 border-black w-[60px] px-2"
-              />
-            </div>
-
-            <div className="flex items-center w-full justify-between gap-2">
-              <label
-                className="text-lg text-black min-w-[120px] text-left"
-                htmlFor="currentInventory"
-              >
-                Current Inventory
-              </label>
-              <input
-                min={0}
-                value={formData.currenInven}
-                readOnly
-                type="number"
-                id="currentInventory"
-                className="text-black text-md border-b-2 border-black w-[60px] px-2"
-              />
-            </div>
-
-            <div className="flex items-center w-full justify-between gap-2">
-              <label
-                className="text-lg text-black min-w-[120px] text-left"
-                htmlFor="estimatedInventory"
-              >
-                Estimated Inventory
-              </label>
-              <input
-                min={0}
-                value={formData.estimInven}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    estimInven:(e.target.value),
-                  }))
-                }
-                type="text"
-                id="estimatedInventory"
-                className="text-black text-md border-b-2 border-black w-[60px] px-2"
-              />
-            </div>
-
-            <div className="flex items-center w-full justify-between gap-2">
-              <label
-                className="text-lg text-black min-w-[120px] text-left"
-                htmlFor="totalInventory"
-              >
-                Total Inventory
-              </label>
-              <input
-                min={0}
-                value={formData.totalInven}
-                readOnly
-                type="number"
-                id="totalInventory"
-                className="text-black text-md border-b-2 border-black w-[60px] px-2"
-              />
-            </div>
-
+          {dataArray.length >= 6 ? (
             <div className="flex items-center gap-2 justify-center w-full">
-              <button
-                disabled={dataArray.length >= 6}
-                className="text-lg text-white z-20 w-full bg-blue-600 hover:bg-blue-700 p-1 rounded-lg cursor-pointer text-center"
-              >
-                Execute
+              <button onClick={()=>window.location.reload()} className="text-lg text-white z-20 w-full bg-blue-600 hover:bg-blue-700 p-1 rounded-lg cursor-pointer text-center">
+                Re Start
               </button>
             </div>
-          </form>
+          ) : (
+            <form
+              onSubmit={handleSubmit}
+              className="flex justify-center items-start gap-2 flex-col z-20"
+            >
+              <div className="flex items-center w-full justify-between gap-2">
+                <label
+                  className="text-lg text-black min-w-[120px] text-left"
+                  htmlFor="estimatedCostomeer"
+                >
+                  Estimated Customers
+                </label>
+                <input
+                  min={0}
+                  value={formData.estimCustomer}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      estimCustomer: e.target.value,
+                    }))
+                  }
+                  type="text"
+                  id="estimatedCostomeer"
+                  className="text-black text-md border-b-2 border-black w-[60px] px-2"
+                />
+              </div>
+
+              <div className="flex items-center w-full justify-between gap-2">
+                <label
+                  className="text-lg text-black min-w-[120px] text-left"
+                  htmlFor="currentInventory"
+                >
+                  Current Inventory
+                </label>
+                <input
+                  min={0}
+                  value={formData.currenInven}
+                  readOnly
+                  type="number"
+                  id="currentInventory"
+                  className="text-black text-md border-b-2 border-black w-[60px] px-2"
+                />
+              </div>
+
+              <div className="flex items-center w-full justify-between gap-2">
+                <label
+                  className="text-lg text-black min-w-[120px] text-left"
+                  htmlFor="estimatedInventory"
+                >
+                  Estimated Inventory
+                </label>
+                <input
+                  min={0}
+                  value={formData.estimInven}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      estimInven: e.target.value,
+                    }))
+                  }
+                  type="text"
+                  id="estimatedInventory"
+                  className="text-black text-md border-b-2 border-black w-[60px] px-2"
+                />
+              </div>
+
+              <div className="flex items-center w-full justify-between gap-2">
+                <label
+                  className="text-lg text-black min-w-[120px] text-left"
+                  htmlFor="totalInventory"
+                >
+                  Total Inventory
+                </label>
+                <input
+                  min={0}
+                  value={formData.totalInven}
+                  readOnly
+                  type="number"
+                  id="totalInventory"
+                  className="text-black text-md border-b-2 border-black w-[60px] px-2"
+                />
+              </div>
+
+              <div className="flex items-center gap-2 justify-center w-full">
+                <button
+                  disabled={dataArray.length >= 6}
+                  className="text-lg text-white z-20 w-full bg-blue-600 hover:bg-blue-700 p-1 rounded-lg cursor-pointer text-center"
+                >
+                  Execute
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </div>
 

@@ -20,10 +20,10 @@ const DayTempWeather = ({dataArray}:myProps) => {
   }
   return (
     <div className="grid grid-cols-12 w-full  place-items-center min-h-[50px]">
-      <div className="col-span-4 w-full bg">
+      <div className="col-span-4 w-full ">
         <h3 className="text-xl text-black text-center ">
           <span className="font-bold ">Day : </span>
-          {DayTempWeatherData[index].day}
+          {DayTempWeatherData[index].day}-6
         </h3>
       </div>
       <div className="col-span-4 w-full">
